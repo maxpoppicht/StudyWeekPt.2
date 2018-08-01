@@ -21,27 +21,37 @@ void GPlayer::Update(float _deltaTime)
 {
 	int mouseX;
 	int mouseY;
-
+	m_ShootRate -= _deltaTime;
 
 	if(SDL_GetMouseState(&mouseX, &mouseY) && SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		SVector2 shootDir = SVector2( CEngine::Get()->GetRenderer()->GetCamera().X - m_position.X + SCREEN_WIDTH / 2 - PLAYER_WIDTH / 2 - mouseX,
-			CEngine::Get()->GetRenderer()->GetCamera().Y - m_position.Y + SCREEN_HEIGHT / 2 - PLAYER_HEIGHT / 2 - mouseY);
+		if (m_ShootRate <= 0) 
+		{
 
-		shootDir = shootDir * -1;
 
-		// create textured object
-		GBullet * m_pBullet = new GBullet(
+			SVector2 shootDir = SVector2( CEngine::Get()->GetRenderer()->GetCamera().X - m_position.X + SCREEN_WIDTH / 2 - PLAYER_WIDTH / 2 - mouseX,
+				CEngine::Get()->GetRenderer()->GetCamera().Y - m_position.Y + SCREEN_HEIGHT / 2 - PLAYER_HEIGHT / 2 - mouseY);
+
+			shootDir = shootDir * -1;
+
+			// create textured object
+			GBullet * m_pBullet = new GBullet(
 			m_position,
 			SVector2(BULLET_WIDTH, BULLET_HEIGHT),
 			CEngine::Get()->GetRenderer(),
-			"Texture/Character/Player/T_Samus_Idle.png", shootDir);
+			"Texture/Character/Weapons/Bullets/Arrow.png", shootDir);
 		
-		m_pBullet->SetSpeed(BULLET_SPEED);
-		m_pBullet->SetColType(ECollisionType::NONE);
+
+			//m_pBullet->SetMirror(BULLET_MIRROR);
+			m_pBullet->SetSpeed(BULLET_SPEED);
+			m_pBullet->SetColType(ECollisionType::NONE);
 	
-		// add player to persistant list
-		CEngine::Get()->GetCM()->AddBullet(m_pBullet);
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddBullet(m_pBullet);
+			
+			m_ShootRate = BULLET_SHOOTRATE;
+		}
+		
 
 	}
 
