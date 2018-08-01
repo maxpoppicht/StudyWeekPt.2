@@ -65,6 +65,11 @@ private:
 	bool m_jump;
 
 	/// <summary>
+	/// Shootrate
+	/// </summary>
+	float m_ShootRate;
+
+	/// <summary>
 	/// time till jump ends
 	/// </summary>
 	float m_jumpTime;
