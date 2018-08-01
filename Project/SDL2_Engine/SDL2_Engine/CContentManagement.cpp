@@ -29,20 +29,36 @@ CContentManagement::~CContentManagement()
 // update every frame
 void CContentManagement::Update(float _deltaTime)
 {
-	
+
 	// update every scene object
 	for each (CObject* pObj in m_pSceneObjects)
-		pObj->Update(_deltaTime);
+	{
+		if (!pObj->Update(_deltaTime))
+		{
+			m_pRemoveObjects.push_back(pObj);
+		}
+
+	}
 
 	// update every persistant object
 	for (CObject* pObj : m_pPersistantObjects)
-		pObj->Update(_deltaTime);
+	{
+		if (!pObj->Update(_deltaTime))
+		{
+			m_pRemoveObjects.push_back(pObj);
+		}
+
+	}
 
 	// update every ui object
 	for (CObject* pObj : m_pUIObjects)
-		pObj->Update(_deltaTime);
+	{
+		if (!pObj->Update(_deltaTime))
+		{
+			m_pRemoveObjects.push_back(pObj);
+		}
 
-
+	}
 
 	// update every bullet object
 	for (CObject* pObj : m_pBullet)
@@ -53,7 +69,7 @@ void CContentManagement::Update(float _deltaTime)
 		}
 
 	}
-	
+
 
 	// remove object in remove list
 	while (m_pRemoveObjects.size() > 0)
@@ -108,7 +124,7 @@ void CContentManagement::RemoveObject(CObject * _pObj)
 
 void CContentManagement::SortList(list<CObject*>& _pList)
 {
-	
+
 }
 
 #pragma endregion
