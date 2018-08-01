@@ -17,17 +17,17 @@
 
 #pragma region public override function
 // update every frame
-void GPlayer::Update(float _deltaTime)
+bool GPlayer::Update(float _deltaTime)
 {
 	int mouseX;
 	int mouseY;
 	m_ShootRate -= _deltaTime;
+	
 
 	if(SDL_GetMouseState(&mouseX, &mouseY) && SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
 		if (m_ShootRate <= 0) 
 		{
-
 
 			SVector2 shootDir = SVector2( CEngine::Get()->GetRenderer()->GetCamera().X - m_position.X + SCREEN_WIDTH / 2 - PLAYER_WIDTH / 2 - mouseX,
 				CEngine::Get()->GetRenderer()->GetCamera().Y - m_position.Y + SCREEN_HEIGHT / 2 - PLAYER_HEIGHT / 2 - mouseY);
@@ -41,19 +41,21 @@ void GPlayer::Update(float _deltaTime)
 			CEngine::Get()->GetRenderer(),
 			"Texture/Character/Weapons/Bullets/Arrow.png", shootDir);
 		
-
-			//m_pBullet->SetMirror(BULLET_MIRROR);
 			m_pBullet->SetSpeed(BULLET_SPEED);
-			m_pBullet->SetColType(ECollisionType::NONE);
-	
-			// add player to persistant list
+			m_pBullet->SetColType(ECollisionType::BULLET);
+
+			// add Bullet to bullet list
 			CEngine::Get()->GetCM()->AddBullet(m_pBullet);
+
 			
+
 			m_ShootRate = BULLET_SHOOTRATE;
 		}
 		
 
 	}
+
+	
 
 	// movement left
 	if (CInput::GetKey(SDL_SCANCODE_A))
@@ -175,6 +177,8 @@ void GPlayer::Update(float _deltaTime)
 	//std::string s = "Position Y: ";
 	//s += std::to_string(m_position.Y);
 	//LOG_ERROR("", s.c_str());
+
+	return true;
 }
 
 // render every frame

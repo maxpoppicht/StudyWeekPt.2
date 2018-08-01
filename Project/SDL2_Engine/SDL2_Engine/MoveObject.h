@@ -44,7 +44,7 @@ public:
 	/// update every frame
 	/// </summary>
 	/// <param name="_deltaTime">time since last frame</param>
-	void Update(float _deltaTime) override;
+	bool Update(float _deltaTime) override;
 
 	/// <summary>
 	/// render every frame

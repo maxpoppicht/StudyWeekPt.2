@@ -7,5 +7,7 @@ enum ECollisionType
 {
 	NONE,
 	MOVE,
+	BULLET,
+	PLAYER,
 	WALL
 };
