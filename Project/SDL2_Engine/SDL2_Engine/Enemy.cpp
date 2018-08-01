@@ -2,7 +2,7 @@
 #include "Physic.h"
 #include "Engine.h"
 
-void GEnemy::Update(float _deltaTime)
+bool GEnemy::Update(float _deltaTime)
 {
 	m_movement.X = -1.0f;
 	m_mirror.X = 1.0f;
@@ -39,5 +39,5 @@ void GEnemy::Update(float _deltaTime)
 	// update parent
 	CMoveObject::Update(_deltaTime);
 	
-
+	return true;
 }

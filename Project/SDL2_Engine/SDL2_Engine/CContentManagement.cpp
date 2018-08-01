@@ -42,9 +42,17 @@ void CContentManagement::Update(float _deltaTime)
 	for (CObject* pObj : m_pUIObjects)
 		pObj->Update(_deltaTime);
 
+
+
 	// update every bullet object
 	for (CObject* pObj : m_pBullet)
-		pObj->Update(_deltaTime);
+	{
+		if (!pObj->Update(_deltaTime))
+		{
+			m_pRemoveObjects.push_back(pObj);
+		}
+
+	}
 	
 
 	// remove object in remove list
@@ -62,8 +70,11 @@ void CContentManagement::Update(float _deltaTime)
 		// remove pointer from ui list
 		m_pUIObjects.remove(pObj);
 
+		m_pBullet.remove(pObj);
+
 		// delete first object in list
 		m_pRemoveObjects.pop_front();
+
 	}
 }
 

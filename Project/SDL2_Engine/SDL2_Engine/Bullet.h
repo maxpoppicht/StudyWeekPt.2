@@ -21,6 +21,9 @@ public:
 	/// <param name="_size">width and height of rect</param>
 	GBullet(SVector2 _pos, SVector2 _size) : CMoveObject(_pos, _size) {}
 
+
+	float TimeSinceLastShot = BULLET_LIFETIME;
+	
 	/// <summary>
 	/// constructor
 	/// </summary>
@@ -57,6 +60,6 @@ public:
 	/// update every frame
 	/// </summary>
 	/// <param name="_deltaTime">time since last frame</param>
-	void Update(float _deltaTime) override;
+	bool Update(float _deltaTime) override;
 #pragma endregion
 };
