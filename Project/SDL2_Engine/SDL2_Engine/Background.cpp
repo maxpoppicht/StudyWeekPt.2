@@ -3,7 +3,7 @@
 #include <vector>
 
 #pragma region project include
-#include "Player.h"
+#include "Background.h"
 #include "Input.h"
 #include "Engine.h"
 #include "ContentManagement.h"
@@ -11,74 +11,22 @@
 #include "Renderer.h"
 #include "Time.h"
 #include "Vector2.h" ///TODO: DELETE
-#include "Bullet.h"
 #include "World.h"
 #pragma endregion
 
 #pragma region public override function
 // update every frame
-void GPlayer::Update(float _deltaTime)
+void  GBackground::Update(float _deltaTime)
 {
 	int mouseX;
 	int mouseY;
 
 
-	if(SDL_GetMouseState(&mouseX, &mouseY) && SDL_BUTTON(SDL_BUTTON_LEFT))
-	{
-		SVector2 shootDir = SVector2( CEngine::Get()->GetRenderer()->GetCamera().X - m_position.X - mouseX + 200,
-			CEngine::Get()->GetRenderer()->GetCamera().Y - m_position.Y - mouseY - 100);
-
-		shootDir = shootDir * -1;
-
-		// create textured object
-		GBullet * m_pBullet = new GBullet(
-			m_position,
-			SVector2(BULLET_WIDTH, BULLET_HEIGHT),
-			CEngine::Get()->GetRenderer(),
-			"Texture/Character/Player/T_Samus_Idle.png", shootDir);
-		
-		m_pBullet->SetSpeed(BULLET_SPEED);
-		m_pBullet->SetColType(ECollisionType::NONE);
-	
-		// add player to persistant list
-		CEngine::Get()->GetCM()->AddBullet(m_pBullet);
-
-	}
-
-	// movement left
-	if (CInput::GetKey(SDL_SCANCODE_A))
-	{
-		// set movement and mirror
-		m_movement.X = -1.0f;
-		m_mirror.X = 1.0f;
-	}
-
-	// movement right
-	else if (CInput::GetKey(SDL_SCANCODE_D))
-	{
-		// set movemenet and mirror
-		m_movement.X = 1.0f;
-		m_mirror.X = 0.0f;
-	}
-
-	// no movement left or right
-	else
-		m_movement.X = 0.0f;
-
-	// if key space is pressed this frame and jump not active and grounded
-	if (CInput::GetKeyDown(SDL_SCANCODE_SPACE) && !m_jump && m_grounded)
-	{
-		// set jump enable, gravity false and set jump time
-		m_jump = true;
-		m_jumpTime = PLAYER_JUMP_TIME;
-		m_gravity = false;
-	}
-
 	// update parent
 	CMoveObject::Update(_deltaTime);
 
 	// if jump enabled
-	if(m_jump)
+	if (m_jump)
 	{
 		// decrease jump time
 		m_jumpTime -= _deltaTime;
@@ -145,30 +93,11 @@ void GPlayer::Update(float _deltaTime)
 			}
 		}
 
-		// if still moveable set y position
-		if (moveable)
-		{
-			m_position.Y -= PLAYER_JUMP_FORCE * _deltaTime;
-			m_rect.y = m_position.Y;
-		}
+		
 	}
-
-	// set position of camera
-	CEngine::Get()->GetRenderer()->SetCamera(
-		SVector2(m_position.X + 200, m_position.Y -100)
-	);
-
-	/// <summary>
-	/// TODO: DELETE
-	/// </summary>
-	// print player position
-	//std::string s = "Position Y: ";
-	//s += std::to_string(m_position.Y);
-	//LOG_ERROR("", s.c_str());
 }
 
-// render every frame
-void GPlayer::Render(CRenderer * _pRenderer)
+void  GBackground::Render(CRenderer * _pRenderer)
 {
 	CMoveObject::Render(_pRenderer);
 }
