@@ -21,6 +21,9 @@ public:
 	/// <param name="_size">width and height of rect</param>
 	GBullet(SVector2 _pos, SVector2 _size) : CMoveObject(_pos, _size) {}
 
+
+	float TimeSinceLastShot = BULLET_LIFETIME;
+	
 	/// <summary>
 	/// constructor
 	/// </summary>
@@ -32,10 +35,13 @@ public:
 		const char* _pFileName, SVector2 _shootDir ) : CMoveObject(_pos, _size, _pRenderer, _pFileName) 
 	{
 		m_shootDir = _shootDir.normalize();
-		m_angle = atan2f(m_shootDir.X, m_shootDir.Y) * 180 / M_PI;
+		m_angle = atan2f(m_shootDir.X, m_shootDir.Y) * 180 / M_PI ;
+		m_angle += 180;
+		m_angle = 360 - m_angle;
+		printf("\n Angle %f \n", m_angle);
 		//m_angle = atan2f(-1.0f,0.0f) * 180 / M_PI;
 		//std::cout << m_angle << std::endl;
-		std::cout << m_shootDir.X << " " << m_shootDir.Y << std::endl;
+		//std::cout << m_shootDir.X << " " << m_shootDir.Y << std::endl;
 
 	}
 
@@ -54,6 +60,6 @@ public:
 	/// update every frame
 	/// </summary>
 	/// <param name="_deltaTime">time since last frame</param>
-	void Update(float _deltaTime) override;
+	bool Update(float _deltaTime) override;
 #pragma endregion
 };
