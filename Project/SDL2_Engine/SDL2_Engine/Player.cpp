@@ -57,27 +57,7 @@ bool GPlayer::Update(float _deltaTime)
 
 	}
 
-	
-
-	// movement left
-	if (CInput::GetKey(SDL_SCANCODE_A))
-	{
-		// set movement and mirror
-		m_movement.X = -1.0f;
-		m_mirror.X = 1.0f;
-	}
-
-	// movement right
-	else if (CInput::GetKey(SDL_SCANCODE_D))
-	{
-		// set movemenet and mirror
-		m_movement.X = 1.0f;
-		m_mirror.X = 0.0f;
-	}
-
-	// no movement left or right
-	else
-		m_movement.X = 0.0f;
+	int KeyPressed = 0;
 
 	// if key space is pressed this frame and jump not active and grounded
 	if (CInput::GetKeyDown(SDL_SCANCODE_SPACE) && !m_jump && m_grounded)
@@ -86,7 +66,62 @@ bool GPlayer::Update(float _deltaTime)
 		m_jump = true;
 		m_jumpTime = PLAYER_JUMP_TIME;
 		m_gravity = false;
+		KeyPressed = 2;
+		m_Idle->SetAnimationActive(false);
+		m_Run->SetAnimationActive(false);
+		m_Jump->SetAnimationActive(true);
+
 	}
+
+	// movement left
+	if (CInput::GetKey(SDL_SCANCODE_A))
+	{
+		// set movement and mirror
+		m_movement.X = -1.0f;
+		m_mirror.X = 1.0f;
+		KeyPressed = 1;
+		if (!m_jump)
+		{
+			m_Idle->SetAnimationActive(false);
+			m_Run->SetAnimationActive(true);
+			m_Jump->SetAnimationActive(false);
+		}
+	}
+
+	// movement right
+	else if (CInput::GetKey(SDL_SCANCODE_D))
+	{
+		// set movemenet and mirror
+		m_movement.X = 1.0f;
+		m_mirror.X = 0.0f;
+		KeyPressed = 1;
+		if (!m_jump)
+		{
+			m_Idle->SetAnimationActive(false);
+			m_Run->SetAnimationActive(true);
+			m_Jump->SetAnimationActive(false);
+		}
+
+	}
+
+	// no movement left or right
+	else
+	{
+		if (!m_jump)
+		{
+			m_Idle->SetAnimationActive(true);
+			m_Run->SetAnimationActive(false);
+			m_Jump->SetAnimationActive(false);
+		}
+		m_movement.X = 0.0f;
+	}
+
+	
+
+	m_Idle->SetMirror(m_mirror);
+	m_Run->SetMirror(m_mirror);
+	m_Jump->SetMirror(m_mirror);
+
 
 	// update parent
 	CMoveObject::Update(_deltaTime);
