@@ -31,11 +31,13 @@ CTexturedObject::~CTexturedObject()
 
 #pragma region public override function
 // update every frame
-void CTexturedObject::Update(float _deltaTime)
+bool CTexturedObject::Update(float _deltaTime)
 {
 	// set position of rect
 	m_rect.x = m_position.X;
 	m_rect.y = m_position.Y;
+
+	return true;
 }
 
 // render every frame

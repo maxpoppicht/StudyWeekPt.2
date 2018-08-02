@@ -65,7 +65,7 @@ public:
 	/// <summary>
 	/// get bullet from list
 	/// </summary>
-	/// <returns>list of all bullet</returns>
+	/// <returns>list of all bullets</returns>
 	inline list<CObject*> GetBullet() { return m_pBullet; }
 
 	/// <summary>
