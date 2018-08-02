@@ -17,31 +17,59 @@
 
 #pragma region public override function
 // update every frame
-void GPlayer::Update(float _deltaTime)
+bool GPlayer::Update(float _deltaTime)
 {
 	int mouseX;
 	int mouseY;
-
+	m_ShootRate -= _deltaTime;
+	
 
 	if(SDL_GetMouseState(&mouseX, &mouseY) && SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		SVector2 shootDir = SVector2(CEngine::Get()->GetRenderer()->GetCamera().X - m_position.X + SCREEN_WIDTH / 2 - PLAYER_WIDTH / 2 - mouseX,
-			CEngine::Get()->GetRenderer()->GetCamera().Y - m_position.Y + SCREEN_HEIGHT / 2 - PLAYER_HEIGHT / 2 - mouseY);
 
-		shootDir = shootDir * -1;
+		if (m_ShootRate <= 0) 
+		{
 
-		// create textured object
-		GBullet * m_pBullet = new GBullet(
+			SVector2 shootDir = SVector2( CEngine::Get()->GetRenderer()->GetCamera().X - m_position.X + SCREEN_WIDTH / 2 - PLAYER_WIDTH / 2 - mouseX,
+				CEngine::Get()->GetRenderer()->GetCamera().Y - m_position.Y + SCREEN_HEIGHT / 2 - PLAYER_HEIGHT / 2 - mouseY);
+
+
+			shootDir = shootDir * -1;
+
+			// create textured object
+			GBullet * m_pBullet = new GBullet(
 			m_position,
 			SVector2(BULLET_WIDTH, BULLET_HEIGHT),
 			CEngine::Get()->GetRenderer(),
-			"Texture/Character/Player/T_Samus_Idle.png", shootDir);
+			"Texture/Character/Weapons/Bullets/Arrow.png", shootDir);
 		
-		m_pBullet->SetSpeed(BULLET_SPEED);
-		m_pBullet->SetColType(ECollisionType::NONE);
-	
-		// add player to persistant list
-		CEngine::Get()->GetCM()->AddBullet(m_pBullet);
+			m_pBullet->SetSpeed(BULLET_SPEED);
+			m_pBullet->SetColType(ECollisionType::BULLET);
+
+			// add Bullet to bullet list
+			CEngine::Get()->GetCM()->AddBullet(m_pBullet);
+
+			
+
+			m_ShootRate = BULLET_SHOOTRATE;
+		}
+		
+
+	}
+
+	int KeyPressed = 0;
+
+	// if key space is pressed this frame and jump not active and grounded
+	if (CInput::GetKeyDown(SDL_SCANCODE_SPACE) && !m_jump && m_grounded)
+	{
+		// set jump enable, gravity false and set jump time
+		m_jump = true;
+		m_jumpTime = PLAYER_JUMP_TIME;
+		m_gravity = false;
+		KeyPressed = 2;
+		m_Idle->SetAnimationActive(false);
+		m_Run->SetAnimationActive(false);
+		m_Jump->SetAnimationActive(true);
 
 	}
 
@@ -51,6 +79,13 @@ void GPlayer::Update(float _deltaTime)
 		// set movement and mirror
 		m_movement.X = -1.0f;
 		m_mirror.X = 1.0f;
+		KeyPressed = 1;
+		if (!m_jump)
+		{
+			m_Idle->SetAnimationActive(false);
+			m_Run->SetAnimationActive(true);
+			m_Jump->SetAnimationActive(false);
+		}
 	}
 
 	// movement right
@@ -59,20 +94,34 @@ void GPlayer::Update(float _deltaTime)
 		// set movemenet and mirror
 		m_movement.X = 1.0f;
 		m_mirror.X = 0.0f;
+		KeyPressed = 1;
+		if (!m_jump)
+		{
+			m_Idle->SetAnimationActive(false);
+			m_Run->SetAnimationActive(true);
+			m_Jump->SetAnimationActive(false);
+		}
+
 	}
 
 	// no movement left or right
 	else
-		m_movement.X = 0.0f;
-
-	// if key space is pressed this frame and jump not active and grounded
-	if (CInput::GetKeyDown(SDL_SCANCODE_SPACE) && !m_jump && m_grounded)
 	{
-		// set jump enable, gravity false and set jump time
-		m_jump = true;
-		m_jumpTime = PLAYER_JUMP_TIME;
-		m_gravity = false;
+		if (!m_jump)
+		{
+			m_Idle->SetAnimationActive(true);
+			m_Run->SetAnimationActive(false);
+			m_Jump->SetAnimationActive(false);
+		}
+		m_movement.X = 0.0f;
 	}
+
+	
+
+	m_Idle->SetMirror(m_mirror);
+	m_Run->SetMirror(m_mirror);
+	m_Jump->SetMirror(m_mirror);
+
 
 	// update parent
 	CMoveObject::Update(_deltaTime);
@@ -165,6 +214,8 @@ void GPlayer::Update(float _deltaTime)
 	//std::string s = "Position Y: ";
 	//s += std::to_string(m_position.Y);
 	//LOG_ERROR("", s.c_str());
+
+	return true;
 }
 
 // render every frame

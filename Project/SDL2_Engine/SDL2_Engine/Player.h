@@ -5,6 +5,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include "Animation.h"
 #pragma endregion
 
 /// <summary>
@@ -48,7 +49,7 @@ public:
 	/// update every frame
 	/// </summary>
 	/// <param name="_deltaTime">time since last frame</param>
-	void Update(float _deltaTime) override;
+	bool Update(float _deltaTime) override;
 
 	/// <summary>
 	/// render every frame
@@ -57,12 +58,23 @@ public:
 	void Render(CRenderer* _pRenderer) override;
 #pragma endregion
 
+	CAnimation* m_Run;
+	CAnimation* m_Jump; 
+	CAnimation* m_Idle;
+
 private:
 #pragma region private primitive variable
 	/// <summary>
 	/// is jump active
 	/// </summary>
 	bool m_jump;
+
+	/// <summary>
+	/// Shootrate
+	/// </summary>
+	float m_ShootRate;
+
+	float TimeSinceLastShot;
 
 	/// <summary>
 	/// time till jump ends

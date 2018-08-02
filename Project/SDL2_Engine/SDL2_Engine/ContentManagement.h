@@ -38,11 +38,24 @@ public:
 	/// <param name="_pObject">object to add</param>
 	inline void AddSceneObject(CObject* _pObject) { AddObject(_pObject, m_pSceneObjects); }
 
+
 	/// <summary>
 	/// get scene objects list
 	/// </summary>
 	/// <returns>list of all scene object</returns>
 	inline list<CObject*> GetSceneObjects() { return m_pSceneObjects; }
+
+	/// <summary>
+	/// add object to scene list
+	/// </summary>
+	/// <param name="_pObject">object to add</param>
+	inline void AddBackgroundObject(CObject* _pObject) { AddObject(_pObject, m_pBackgroundObjects); }
+
+	/// <summary>
+	/// get scene objects list
+	/// </summary>
+	/// <returns>list of all scene object</returns>
+	inline list<CObject*> GetBackgroundObject() { return m_pBackgroundObjects; }
 
 	/// <summary>
 	/// add object to persitant list
@@ -65,7 +78,7 @@ public:
 	/// <summary>
 	/// get bullet from list
 	/// </summary>
-	/// <returns>list of all bullet</returns>
+	/// <returns>list of all bullets</returns>
 	inline list<CObject*> GetBullet() { return m_pBullet; }
 
 	/// <summary>
@@ -113,6 +126,11 @@ private:
 	/// scene / world objects
 	/// </summary>
 	list<CObject*> m_pSceneObjects;
+
+	/// <summary>
+	/// scene / world objects
+	/// </summary>
+	list<CObject*> m_pBackgroundObjects;
 
 	/// <summary>
 	/// persistant object

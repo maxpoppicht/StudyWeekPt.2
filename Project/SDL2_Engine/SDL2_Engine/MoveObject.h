@@ -44,7 +44,7 @@ public:
 	/// update every frame
 	/// </summary>
 	/// <param name="_deltaTime">time since last frame</param>
-	void Update(float _deltaTime) override;
+	bool Update(float _deltaTime) override;
 
 	/// <summary>
 	/// render every frame
@@ -65,6 +65,12 @@ public:
 	/// </summary>
 	/// <param name="_speed">value to set</param>
 	inline void SetSpeed(float _speed) { m_speed = _speed; }
+
+	/// <summary>
+	/// set Cooldown of Bullet shots
+	/// </summary>
+	/// <param name="_bulletcd">value of cooldown</param>
+	inline void SetBulletCD(float _bulletcd) { m_BulletCD = _bulletcd; }
 
 	/// <summary>
 	/// get movement direction
@@ -95,6 +101,11 @@ protected:
 	/// if gravity is active
 	/// </summary>
 	bool m_gravity;
+
+	/// <summary>
+	/// Cooldown of bullet shots
+	/// </summary>
+	float m_BulletCD;
 
 	/// <summary>
 	/// object is on ground

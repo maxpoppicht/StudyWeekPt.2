@@ -6,7 +6,7 @@
 
 #pragma region constructor
 // constructor
-CTexturedObject::CTexturedObject(SVector2 _pos, SVector2 _size, CRenderer * _pRenderer, 
+CTexturedObject::CTexturedObject(SVector2 _pos, SVector2 _size, CRenderer * _pRenderer,
 	const char * _pFileName)
 {
 	// set position and rect
@@ -20,22 +20,26 @@ CTexturedObject::CTexturedObject(SVector2 _pos, SVector2 _size, CRenderer * _pRe
 	m_pTexture = new CTexture(_pFileName, _pRenderer);
 }
 
+
+
 // destructor
 CTexturedObject::~CTexturedObject()
 {
 	// delete texture
-	if(m_pTexture)
+	if (m_pTexture)
 		delete m_pTexture;
 }
 #pragma endregion
 
 #pragma region public override function
 // update every frame
-void CTexturedObject::Update(float _deltaTime)
+bool CTexturedObject::Update(float _deltaTime)
 {
 	// set position of rect
 	m_rect.x = m_position.X;
 	m_rect.y = m_position.Y;
+
+	return true;
 }
 
 // render every frame

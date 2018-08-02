@@ -66,7 +66,6 @@ void CRenderer::RenderTexture(CTexture * _pTexture, SRect _destRect, SRect _srcR
 		destRect.h = SCREEN_HEIGHT;
 	}
 
-
 	// if texture is not in world and not in screen return
 	if (!_inWorld &&
 		(destRect.x >= SCREEN_WIDTH || destRect.x <= 0 ||

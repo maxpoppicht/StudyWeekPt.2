@@ -7,7 +7,7 @@
 
 #pragma region public override function
 // update every frame
-void CMoveObject::Update(float _deltaTime)
+bool CMoveObject::Update(float _deltaTime)
 {
 	// moveable default true
 	bool moveable = true;
@@ -66,6 +66,37 @@ void CMoveObject::Update(float _deltaTime)
 		}
 	}
 
+	if (GetColType() == ECollisionType::BULLET)
+	{
+
+		// through all scene objects
+		for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
+		{
+			// if current object is self continue
+			if ((CMoveObject*)pObj && pObj == this)
+				continue;
+
+			// if collision type none
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+				continue;
+
+			// if collision type player
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::PLAYER)
+				continue;
+
+			//if collision type  bullet continue
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::BULLET)
+				continue;
+
+			// if collision type wall
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::WALL)
+			{
+				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+			}
+				continue;
+		}
+	}
+
 	// if moveable
 	if (moveable)
 	{
@@ -79,7 +110,7 @@ void CMoveObject::Update(float _deltaTime)
 
 	// if no gravity return
 	if (!m_gravity)
-		return;
+		return true;
 
 	// set moveable true
 	moveable = true;
@@ -147,6 +178,7 @@ void CMoveObject::Update(float _deltaTime)
 		m_fallTime = 0.001f;
 		m_grounded = true;
 	}
+	return true;
 }
 
 // render every frame
