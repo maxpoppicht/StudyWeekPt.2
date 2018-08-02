@@ -25,8 +25,8 @@ void GPlayer::Update(float _deltaTime)
 
 	if(SDL_GetMouseState(&mouseX, &mouseY) && SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		SVector2 shootDir = SVector2(CEngine::Get()->GetRenderer()->GetCamera().X - m_position.X + SCREEN_WIDTH / 2 - PLAYER_WIDTH / 2 - mouseX,
-			CEngine::Get()->GetRenderer()->GetCamera().Y - m_position.Y + SCREEN_HEIGHT / 2 - PLAYER_HEIGHT / 2 - mouseY);
+		SVector2 shootDir = SVector2( CEngine::Get()->GetRenderer()->GetCamera().X - m_position.X - mouseX + 200,
+			CEngine::Get()->GetRenderer()->GetCamera().Y - m_position.Y - mouseY - 100);
 
 		shootDir = shootDir * -1;
 
@@ -155,7 +155,7 @@ void GPlayer::Update(float _deltaTime)
 
 	// set position of camera
 	CEngine::Get()->GetRenderer()->SetCamera(
-		SVector2(m_position.X + PLAYER_WIDTH / 2, m_position.Y + PLAYER_HEIGHT / 2)
+		SVector2(m_position.X + 200, m_position.Y -100)
 	);
 
 	/// <summary>
