@@ -52,7 +52,7 @@ public:
 	/// update every frame
 	/// </summary>
 	/// <param name="_deltaTime">time since last frame</param>
-	virtual void Update(float _deltaTime) = 0;
+	virtual bool Update(float _deltaTime) = 0;
 
 	/// <summary>
 	/// render every frame
