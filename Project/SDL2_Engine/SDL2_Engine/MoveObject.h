@@ -95,12 +95,21 @@ public:
 	inline void DeactivateGravity() { m_gravity = false; }
 #pragma endregion
 
+
+public:
+
+	/// <summary>
+	/// Player Life
+	/// </summary>
+	int m_PlayerLife = 3;
+
 protected:
 #pragma region protected primitive variable
 	/// <summary>
 	/// if gravity is active
 	/// </summary>
 	bool m_gravity;
+
 
 	/// <summary>
 	/// Cooldown of bullet shots
