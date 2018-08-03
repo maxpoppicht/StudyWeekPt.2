@@ -70,7 +70,7 @@ bool CMoveObject::Update(float _deltaTime)
 	{
 
 		// through all scene objects
-		for (CObject* pObj : CEngine::Get()->GetCM()->GetSceneObjects())
+		for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
 		{
 			// if current object is self continue
 			if ((CMoveObject*)pObj && pObj == this)
