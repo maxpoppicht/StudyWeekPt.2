@@ -5,6 +5,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include "Animation.h"
 #pragma endregion
 
 /// <summary>
@@ -56,6 +57,10 @@ public:
 	/// <param name="_pRenderer"></param>
 	void Render(CRenderer* _pRenderer) override;
 #pragma endregion
+
+	CAnimation* m_Run;
+	CAnimation* m_Jump; 
+	CAnimation* m_Idle;
 
 private:
 #pragma region private primitive variable

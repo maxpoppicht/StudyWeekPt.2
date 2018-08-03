@@ -28,6 +28,8 @@ public:
 	/// <param name="_pos">position of object</param>
 	CTexturedObject(SVector2 _pos) : CObject(_pos) {}
 
+
+
 	/// <summary>
 	/// constructor
 	/// </summary>
@@ -51,6 +53,16 @@ public:
 	/// <param name="_pFileName">file path name (relative)</param>
 	CTexturedObject(SVector2 _pos, SVector2 _size, CRenderer* _pRenderer,
 		const char* _pFileName);
+
+	/// <summary>
+	/// constructor
+	/// </summary>
+	/// <param name="_pos">position of object</param>
+	/// <param name="_size">width and height of rect</param>
+	/// <param name="_pRenderer">renderer</param>
+	/// <param name="_pFileName">file path name (relative)</param>
+	CTexturedObject(SVector2 _pos, SVector2 _size, CRenderer* _pRenderer,
+		const char* _pFileName, int h, int b, int x, int y);
 
 	/// <summary>
 	/// destructor
@@ -155,6 +167,9 @@ protected:
 	/// collision type
 	/// </summary>
 	ECollisionType m_colType;
+
+
+
 #pragma endregion
 
 #pragma region protected variable
