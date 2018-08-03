@@ -97,6 +97,9 @@ public:
 	/// <returns>rect of object</returns>
 	inline SRect GetRect() { return m_rect; }
 
+
+	void Kill();
+
 	/// <summary>
 	/// set rect
 	/// </summary>
@@ -127,6 +130,7 @@ public:
 	/// <param name="_mirror">value to set</param>
 	inline void SetMirror(SVector2 _mirror) { m_mirror = _mirror; }
 
+
 	/// <summary>
 	/// get texture
 	/// </summary>
@@ -140,6 +144,12 @@ protected:
 	/// if object is rendered in screen or world space
 	/// </summary>
 	bool m_inWorld = true;
+
+	/// <summary>
+	/// bool for hit detection and death 
+	/// </summary>
+	bool m_OnHitDeath = false;
+
 
 	/// <summary>
 	/// collision type

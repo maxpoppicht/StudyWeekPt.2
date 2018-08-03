@@ -13,6 +13,10 @@
 // update every frame
 bool CMoveObject::Update(float _deltaTime)
 {
+	if (m_OnHitDeath == true)
+	{
+		return false;
+	}
 	// moveable default true
 	bool moveable = true;
 
@@ -182,14 +186,8 @@ bool CMoveObject::Update(float _deltaTime)
 				/// </summary>
 				/// <param name="_deltaTime"></param>
 				/// <returns></returns>
-				// if collision type bullet
-				//if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::BULLET)
-				//{
-				//	if(CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()))
-				//	{
-				//		CEngine::Get()->GetCM()->GetPersistantObjects()
-				//	}
-				//}
+				 
+				
 
 				// if not moveable cancel collision check
 				if (!moveable)
@@ -244,6 +242,16 @@ bool CMoveObject::Update(float _deltaTime)
 
 				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::PLAYER)
 					continue;
+
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::ENEMY)
+				{
+
+					if(CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()))
+					{
+						((CTexturedObject*)pObj)->Kill();
+						return false;
+					}
+				}
 
 				// set moveable by checking collision
 				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
