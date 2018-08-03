@@ -221,7 +221,7 @@ void GWorld::Init()
 			// set player values
 			pPlayer->SetSpeed(PLAYER_SPEED);
 			pPlayer->SetMirror(PLAYER_MIRROR);
-			pPlayer->SetColType(ECollisionType::MOVE);
+			pPlayer->SetColType(ECollisionType::PLAYER);
 			pPlayer->ActivateGravity();
 
 			// add player to persistant list
@@ -273,18 +273,18 @@ void GWorld::Init()
 			// create textured object
 			GEnemy * pEnemy = new GEnemy(
 				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
+				SVector2(95, 125),
 				CEngine::Get()->GetRenderer(),
 				"Texture/Character/Player/Enemy_Skelett.png");
 
 			// set player values
 			pEnemy->SetSpeed(ENEMY_SPEED);
 			pEnemy->SetMirror(ENEMY_MIRROR);
-			pEnemy->SetColType(ECollisionType::MOVE);
-			pEnemy->ActivateGravity();
+			pEnemy->SetColType(ECollisionType::ENEMY);
+			pEnemy->ActivateGravity();						// need?
 
 			// add player to persistant list
-			CEngine::Get()->GetCM()->AddSceneObject(pEnemy);
+			CEngine::Get()->GetCM()->AddPersistantObject(pEnemy);
 			break;
 		}
 		case 'F':
@@ -314,7 +314,7 @@ void GWorld::Init()
 			pObj->SetColType(ECollisionType::WALL);
 
 			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
+			CEngine::Get()->GetCM()->AddSceneObject(pObj);
 			break;
 		}
 		case 'T':

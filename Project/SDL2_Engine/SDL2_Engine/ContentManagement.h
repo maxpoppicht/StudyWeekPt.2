@@ -25,6 +25,7 @@ public:
 	/// </summary>
 	CContentManagement() {}
 
+
 	/// <summary>
 	/// destructor
 	/// </summary>
@@ -81,6 +82,9 @@ public:
 	/// <returns>list of all bullets</returns>
 	inline list<CObject*> GetBullet() { return m_pBullet; }
 
+
+	void RemoveAll();
+
 	/// <summary>
 	/// add object to ui list
 	/// </summary>
@@ -106,6 +110,7 @@ public:
 	/// </summary>
 	/// <param name="_pRenderer">renderer</param>
 	void Render(CRenderer* _pRenderer);
+	
 
 	/// <summary>
 	/// remove object

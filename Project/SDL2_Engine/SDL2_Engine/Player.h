@@ -74,8 +74,16 @@ private:
 	/// </summary>
 	float m_ShootRate;
 
+	/// <summary>
+	/// Time Since last fired shot
+	/// </summary>
 	float TimeSinceLastShot;
 
+	/// <summary>
+	/// Player Life
+	/// </summary>
+	//int m_PlayerLife;
+		
 	/// <summary>
 	/// time till jump ends
 	/// </summary>
