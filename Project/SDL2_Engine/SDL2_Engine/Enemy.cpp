@@ -1,7 +1,11 @@
 #include "Enemy.h"
 #include "Physic.h"
 #include "Engine.h"
-
+/// <summary>
+/// Bearbeitet von Max
+/// </summary>
+/// <param name="_deltaTime"></param>
+/// <returns></returns>
 bool GEnemy::Update(float _deltaTime)
 {
 	m_movement.X = -1.0f;

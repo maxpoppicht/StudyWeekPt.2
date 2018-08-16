@@ -33,7 +33,7 @@ CTexturedObject::~CTexturedObject()
 
 #pragma region public override function
 // update every frame
-bool CTexturedObject::Update(float _deltaTime)
+bool CTexturedObject::Update(float _deltaTime)	//Max
 {
 	if (m_OnHitDeath == true)
 	{
@@ -52,7 +52,7 @@ void CTexturedObject::Render(CRenderer * _pRenderer)
 	// render texture
 	_pRenderer->RenderTexture(m_pTexture, m_rect, m_srcRect, m_mirror, m_angle);
 }
-void CTexturedObject::Kill()
+void CTexturedObject::Kill()			//Max
 {
 	m_OnHitDeath = true;
 }

@@ -26,7 +26,9 @@ CContentManagement::~CContentManagement()
 #pragma endregion
 
 #pragma region public function
-
+/// <summary>
+/// Max
+/// </summary>
 // update every frame
 void CContentManagement::Update(float _deltaTime)
 {
@@ -94,10 +96,12 @@ void CContentManagement::Update(float _deltaTime)
 
 	}
 }
-
+/// <summary>
+/// Max: Remove aller objecte
+/// </summary>
 void CContentManagement::RemoveAll()
 {
-
+	//deletes all scene object
 	for each (CObject* pObj in m_pSceneObjects)
 	{
 		{
@@ -106,7 +110,7 @@ void CContentManagement::RemoveAll()
 
 	}
 
-
+	//deletes all persistant objects
 	for (CObject* pObj : m_pPersistantObjects)
 	{
 		{
@@ -115,6 +119,7 @@ void CContentManagement::RemoveAll()
 
 	}
 
+	//deletes all UI objects
 	for (CObject* pObj : m_pUIObjects)
 	{
 		{
@@ -123,7 +128,7 @@ void CContentManagement::RemoveAll()
 
 	}
 
-
+	//deletes all Bullet objects
 	for (CObject* pObj : m_pBullet)
 	{
 		{

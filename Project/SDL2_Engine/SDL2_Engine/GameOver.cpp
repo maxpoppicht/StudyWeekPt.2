@@ -4,7 +4,10 @@
 #include "ContentManagement.h"
 #include "GameOver.h"
 #pragma endregion
-
+/// <summary>
+/// Komplett Max
+/// </summary>
+/// <param name="DeathPoint"></param>
 GGameOver::GGameOver(SVector2 DeathPoint) : CScene()
 {
 	m_deathpoint = DeathPoint;

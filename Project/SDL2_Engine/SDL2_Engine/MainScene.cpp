@@ -3,7 +3,9 @@
 #include "World.h"
 #include "ContentManagement.h"
 #pragma endregion
-
+/// <summary>
+/// Max gemacht
+/// </summary>
 #pragma region public override function
 // initialize scene
 void GMainScene::Init()

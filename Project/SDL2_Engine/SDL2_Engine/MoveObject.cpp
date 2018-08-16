@@ -8,7 +8,9 @@
 #include "GameOver.h"
 #include "World.h"
 #pragma endregion
-
+/// <summary>
+/// Max: mehere collision typen geändert neue erstellt etc. 
+/// </summary>
 #pragma region public override function
 // update every frame
 bool CMoveObject::Update(float _deltaTime)
