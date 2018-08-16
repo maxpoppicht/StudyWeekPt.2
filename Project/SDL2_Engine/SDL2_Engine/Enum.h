@@ -14,5 +14,6 @@ enum ECollisionType
 	PLAYER,
 	OBSTACL,
 	ENEMY,
-	WALL
+	WALL,
+	END
 };

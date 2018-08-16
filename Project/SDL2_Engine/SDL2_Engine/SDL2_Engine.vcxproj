@@ -178,6 +178,7 @@ xcopy "$(SolutionDir)Library\SDL2_ttf\lib\$(PlatformShortName)\*.dll" "$(Solutio
     <ClCompile Include="CContentManagement.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="GameWin.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -202,6 +203,7 @@ xcopy "$(SolutionDir)Library\SDL2_ttf\lib\$(PlatformShortName)\*.dll" "$(Solutio
     <ClInclude Include="Enum.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="GameWin.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Macro.h" />
