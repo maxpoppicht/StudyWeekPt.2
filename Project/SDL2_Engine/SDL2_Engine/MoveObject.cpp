@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "GameOver.h"
 #include "World.h"
+#include "GameWin.h"
 #pragma endregion
 /// <summary>
 /// Max: mehere collision typen geändert neue erstellt etc. 
@@ -44,6 +45,10 @@ bool CMoveObject::Update(float _deltaTime)
 			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
 				continue;
 
+			//if collision type end continue
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::END)
+				continue;
+
 			// set moveable by checking collision
 			moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
 
@@ -60,6 +65,10 @@ bool CMoveObject::Update(float _deltaTime)
 			{
 				// if current object is self continue
 				if ((CMoveObject*)pObj && pObj == this)
+					continue;
+
+				//if collision type end continue
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::END)
 					continue;
 
 				// if collision type none
@@ -90,6 +99,10 @@ bool CMoveObject::Update(float _deltaTime)
 			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
 				continue;
 
+			//if collision type end continue
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::END)
+				continue;
+
 			// set moveable by checking collision
 			moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
 
@@ -108,7 +121,6 @@ bool CMoveObject::Update(float _deltaTime)
 				if ((CMoveObject*)pObj && pObj == this)
 					continue;
 
-
 				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::ENEMY)
 				{
 					if (CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()))
@@ -123,6 +135,24 @@ bool CMoveObject::Update(float _deltaTime)
 							SVector2 position = m_position;
 							CEngine::Get()->GetCM()->RemoveAll();
 							CEngine::Get()->ChangeScene(new GGameOver(position));
+						}
+					}
+				}
+
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::END)
+				{
+					if (CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()))
+					{
+						//Collision with Enemy take 1 damage
+						m_PlayerLife += 1;
+
+						printf("%d\n", m_PlayerLife);
+						// if Player 0 Health he dead
+						if (m_PlayerLife >= 4)
+						{
+							SVector2 position = m_position;
+							CEngine::Get()->GetCM()->RemoveAll();
+							CEngine::Get()->ChangeScene(new GGameWin(position));
 						}
 					}
 				}
@@ -159,6 +189,10 @@ bool CMoveObject::Update(float _deltaTime)
 			// set moveable by checking collision
 			moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
 
+			//if collision type end continue
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::END)
+				continue;
+
 			// if not moveable cancel collision check
 			if (!moveable)
 				break;
@@ -178,6 +212,10 @@ bool CMoveObject::Update(float _deltaTime)
 
 				// if collision type none
 				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+					continue;
+
+				//if collision type end continue
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::END)
 					continue;
 
 				// set moveable by checking collision
@@ -219,7 +257,9 @@ bool CMoveObject::Update(float _deltaTime)
 			//if collision type  bullet continue
 			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::BULLET)
 				continue;
-
+			//if collision type end continue
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::END)
+				continue;
 			// if collision type wall
 			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::WALL)
 			{
@@ -243,6 +283,10 @@ bool CMoveObject::Update(float _deltaTime)
 					continue;
 
 				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::PLAYER)
+					continue;
+
+				//if collision type end continue
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::END)
 					continue;
 
 				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::ENEMY)

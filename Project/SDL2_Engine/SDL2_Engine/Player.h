@@ -82,7 +82,7 @@ private:
 	/// <summary>
 	/// Player Life
 	/// </summary>
-	//int m_PlayerLife;
+	int m_PlayerLife;
 		
 	/// <summary>
 	/// time till jump ends

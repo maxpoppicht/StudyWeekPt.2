@@ -13,5 +13,6 @@ enum ECollisionType
 	BULLET,
 	PLAYER,
 	ENEMY,
-	WALL
+	WALL,
+	END
 };
