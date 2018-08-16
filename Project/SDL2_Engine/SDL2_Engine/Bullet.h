@@ -3,6 +3,9 @@
 #include <math.h>
 #include <iostream>
 
+/// <summary>
+/// Bearbeitet von Max
+/// </summary>
 
 class GBullet :public CMoveObject
 {

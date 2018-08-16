@@ -1,6 +1,9 @@
 #pragma once
 
 /// <summary>
+/// Hat max gemacht
+/// </summary>
+/// <summary>
 /// collision type enum
 /// </summary>
 enum ECollisionType
