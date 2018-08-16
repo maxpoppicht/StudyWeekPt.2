@@ -11,6 +11,8 @@
 #include "Enemy.h"
 #pragma endregion
 
+// Collision und Enemy bearbeitet von Max | World und Animationen bearbeitet von Timo
+
 #pragma region using
 using namespace std;
 #pragma endregion
@@ -26,14 +28,45 @@ void GWorld::Init()
 	// string 100x20
 	// 1 block is 64 x 64 pixel
 	// screen has 20 (width) and 12 (height) blocks
-	// X = dirt (outside)
-	// 0 = black (free, background)
-	// W = way (walk on)
-	// L = lava (death)
-	// S = start point of player
-	// E = start point of Enemy
-	// F = Saloon
-	// G = Rock
+	
+	// Background Layer
+	// X = first texture from layer
+	// L = second texture from layer
+	// Z = third texture from layer
+	// B = 4th texture from layer
+	// A = 5th texture from layer
+	// W = 6th texture from layer
+	// M = 7th texture from layer
+	// R = 8th texture from layer
+	// D = 9th texture from layer
+	// V = 10th texture from layer
+	// U = 11th texture from layer
+	// N = 12th texture from layer
+
+	// Character
+	// S = Player
+	// E = Ememy
+	// H = Enemy dummy
+
+	// Background
+	// 1 = Background
+
+	// Environment
+	// F = Cactus
+	// G = Mountain for World End
+	// T = Signpost
+	// I = Mountain
+	// J = Cart
+
+	// Obstacles
+	// Y = Red Pool short
+	// K = Platform solid
+	// Q = Platform moving
+	// C = Spikepit
+	
+	// Collider
+	// 2 = Invisible Collider for Cart
+
 	world += "1ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\n";
 	world += "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\n";
 	world += "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\n";
@@ -54,13 +87,13 @@ void GWorld::Init()
 	world += "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\n";
 	world += "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n";
 	world += "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMKMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n";
-	world += "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n";
-	world += "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMHMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n";
+	world += "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMKMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n";
+	world += "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMEMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n";
 	world += "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n";
 	world += "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLJLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n";
 	world += "LLLLLLLLLLLLLLLLLLLLLLLLLTLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLKLLLLLLLLLLLLLLLLLLLLLLQLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLTLLLLLLLLL\n";
 	world += "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL2LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLQLLLLLLLLLLLLQLLLLLLLLLLLLLLLLLLLLLLLL\n";
-	world += "LLLLLLLLLLLFLLSLLLLLLLLLLLLLLLLLLFLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLFLLFLLLLLLLLLLLLLLLLLLLLLHLLLLLHLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLHLLLLHLLLLLHLLLLLLLFLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n";
+	world += "LLLLLLLLLLLFLLLLLLLLLLLLLLLLLLLLLFLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLFLLFLLLLLLLLLLLLLLLLLLLLLHLLSLLHLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLHLLLLHLLLLLHLLLLLLLFLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n";
 	world += "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRLLLLLLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRLLLLLLLLLLLLLLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRLLLLLLLLLLLLLLRRRRRRRRRRRRRRRRRRRRRRRRRLLLLLLRRRRRLLLLLLLLLLLLLLLLLLLLLLLRRRRRRRRRRRRRRRRRR\n";
 	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXLLLLLLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXLLLLLLLLLLLLLLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXLLLLLLLLLLLLLLXXXXXXXXXXXXXXXXXXXXXXXXXLLLLLLXXXXXLLLLLLLLLLLLLLLLLLLLLLLXXXXXXXXXXXXXXXXXX\n";
 	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXYAAAAAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXYAAAAYAAYAAAAAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXYAAAAYAAYAAAAAXXXXXXXXXXXXXXXXXXXXXXXXXYAAAAAXXXXXCAAAAAAAAAAAAAAAAAAAAAAXXXXXXXXXXXXXXXXXX\n";
@@ -95,7 +128,7 @@ void GWorld::Init()
 			SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT),
 			SVector2(WORLD_BLOCK_WIDTH, WORLD_BLOCK_HEIGHT),
 			CEngine::Get()->GetRenderer(),
-			"Texture/World/Background_Layer1.png"
+			"Texture/World/Layer/Background_Layer1.png"
 
 		);
 
@@ -106,7 +139,6 @@ void GWorld::Init()
 		// switch char in world string
 		switch (world[i])
 		{
-		// if dirt set position of texture in atlas map
 		case 'X':
 		{
 			xPosOfTexture = WORLD_BLOCK_ATLAS_WIDTH;
@@ -115,22 +147,26 @@ void GWorld::Init()
 			pObj->SetColType(ECollisionType::WALL);
 			break;
 		}
-
-		// if way set position of texture in atlas map
-		case 'W':
+		case 'L':
 		{
-			xPosOfTexture = 6 * WORLD_BLOCK_ATLAS_WIDTH;
+			xPosOfTexture = 2 * WORLD_BLOCK_ATLAS_WIDTH;
 			
 			// set collision type to wall
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
-
-		// if lava set position of texture in atlas map
-		case 'L':
+		case 'Z':
 		{
-			xPosOfTexture = 2 * WORLD_BLOCK_ATLAS_WIDTH;
-			
+			xPosOfTexture = 3 * WORLD_BLOCK_ATLAS_WIDTH;
+
+			// set collision type to wall
+			pObj->SetColType(ECollisionType::NONE);
+			break;
+		}
+		case 'B':
+		{
+			xPosOfTexture = 4 * WORLD_BLOCK_ATLAS_WIDTH;
+
 			// set collision type to wall
 			pObj->SetColType(ECollisionType::NONE);
 			break;
@@ -143,11 +179,17 @@ void GWorld::Init()
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
-
-		// if lava set position of texture in atlas map
-		case 'B':
+		case 'W':
 		{
-			xPosOfTexture = 4 * WORLD_BLOCK_ATLAS_WIDTH;
+			xPosOfTexture = 6 * WORLD_BLOCK_ATLAS_WIDTH;
+			
+			// set collision type to wall
+			pObj->SetColType(ECollisionType::NONE);
+			break;
+		}
+		case 'M':
+		{
+			xPosOfTexture = 7 * WORLD_BLOCK_ATLAS_WIDTH;
 
 			// set collision type to wall
 			pObj->SetColType(ECollisionType::NONE);
@@ -161,9 +203,9 @@ void GWorld::Init()
 			pObj->SetColType(ECollisionType::WALL);
 			break;
 		}
-		case 'Z':
+		case 'D':
 		{
-			xPosOfTexture = 3 * WORLD_BLOCK_ATLAS_WIDTH;
+			xPosOfTexture = 9 * WORLD_BLOCK_ATLAS_WIDTH;
 
 			// set collision type to wall
 			pObj->SetColType(ECollisionType::NONE);
@@ -172,14 +214,6 @@ void GWorld::Init()
 		case 'V':
 		{
 			xPosOfTexture = 10 * WORLD_BLOCK_ATLAS_WIDTH;
-
-			// set collision type to wall
-			pObj->SetColType(ECollisionType::NONE);
-			break;
-		}
-		case 'D':
-		{
-			xPosOfTexture = 9 * WORLD_BLOCK_ATLAS_WIDTH;
 
 			// set collision type to wall
 			pObj->SetColType(ECollisionType::NONE);
@@ -196,14 +230,6 @@ void GWorld::Init()
 		case 'N':
 		{
 			xPosOfTexture = 12 * WORLD_BLOCK_ATLAS_WIDTH;
-
-			// set collision type to wall
-			pObj->SetColType(ECollisionType::NONE);
-			break;
-		}
-		case 'M':
-		{
-			xPosOfTexture = 7 * WORLD_BLOCK_ATLAS_WIDTH;
 
 			// set collision type to wall
 			pObj->SetColType(ECollisionType::NONE);
@@ -244,7 +270,7 @@ void GWorld::Init()
 				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
 				SVector2(94, 124),
 				CEngine::Get()->GetRenderer(),
-				"Texture/Character/Player/SS_Hunter_jump.png", 281, 1652, 7, 1, 0.5f);
+				"Texture/Character/Animation/SS_Hunter_jump.png", 281, 1652, 7, 1, 0.5f);
 
 			pJump->SetMirror(PLAYER_MIRROR);
 			pJump->SetParent(pPlayer);
@@ -257,7 +283,7 @@ void GWorld::Init()
 				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
 				SVector2(94, 124),
 				CEngine::Get()->GetRenderer(),
-				"Texture/Character/Player/SS_Hunter_running.png", 269, 888,4, 1, 0.1f);
+				"Texture/Character/Animation/SS_Hunter_running.png", 269, 888,4, 1, 0.1f);
 
 			pRun->SetMirror(PLAYER_MIRROR);
 			pRun->SetParent(pPlayer);
@@ -275,7 +301,7 @@ void GWorld::Init()
 				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
 				SVector2(95, 125),
 				CEngine::Get()->GetRenderer(),
-				"Texture/Character/Player/Enemy_Skelett.png");
+				"Texture/Character/Enemy/Zombie.png");
 
 			// set player values
 			pEnemy->SetSpeed(ENEMY_SPEED);
@@ -287,141 +313,6 @@ void GWorld::Init()
 			CEngine::Get()->GetCM()->AddPersistantObject(pEnemy);
 			break;
 		}
-		case 'F':
-		{
-			// create textured objectd
-			CTexturedObject * pObj = new  CTexturedObject(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(75, 140),
-				CEngine::Get()->GetRenderer(),
-				"Texture/World/Kaktus.png");
-
-			pObj->SetColType(ECollisionType::WALL);
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
-			break;
-		}
-		case 'G':
-		{
-			// create textured objectd
-			CTexturedObject * pObj = new  CTexturedObject(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(600, 630),
-				CEngine::Get()->GetRenderer(),
-				"Texture/World/Mountain_Beginning.png");
-
-			pObj->SetColType(ECollisionType::WALL);
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddSceneObject(pObj);
-			break;
-		}
-		case 'T':
-		{
-			// create textured objectd
-			CTexturedObject * pObj = new  CTexturedObject(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(126, 250),
-				CEngine::Get()->GetRenderer(),
-				"Texture/World/Signpost.png");
-
-			pObj->SetColType(ECollisionType::NONE);
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
-			break;
-		}
-		case 'Y':
-		{
-			// create textured objectd
-			CTexturedObject * pObj = new  CTexturedObject(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(288, 470),
-				CEngine::Get()->GetRenderer(),
-				"Texture/World/Pool_Red_short.png");
-
-			pObj->SetColType(ECollisionType::NONE);
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
-			break;
-		}
-		case 'K':
-		{
-			// create textured objectd
-			CTexturedObject * pObj = new  CTexturedObject(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(265, 42),
-				CEngine::Get()->GetRenderer(),
-				"Texture/World/Plattform_solid.png");
-
-			pObj->SetColType(ECollisionType::WALL);
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
-			break;
-		}
-		case 'Q':
-		{
-			// create textured objectd
-			CTexturedObject * pObj = new  CTexturedObject(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(265, 42),
-				CEngine::Get()->GetRenderer(),
-				"Texture/World/Plattform_moving.png");
-
-			pObj->SetColType(ECollisionType::WALL);
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
-			break;
-		}
-		case 'J':
-		{
-			// create textured objectd
-			CTexturedObject * pObj = new  CTexturedObject(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(500, 290),
-				CEngine::Get()->GetRenderer(),
-				"Texture/World/Wagen.png");
-
-			pObj->SetColType(ECollisionType::NONE);
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
-			break;
-		}
-		case 'I':
-		{
-			// create textured objectd
-			CTexturedObject * pObj = new  CTexturedObject(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(600, 630),
-				CEngine::Get()->GetRenderer(),
-				"Texture/World/Mountain.png");
-
-			pObj->SetColType(ECollisionType::WALL);
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
-			break;
-		}
-		case 'C':
-		{
-			// create textured objectd
-			CTexturedObject * pObj = new  CTexturedObject(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
-				SVector2(1104, 200),
-				CEngine::Get()->GetRenderer(),
-				"Texture/World/Spiky_Pit_DLD.png");
-
-			pObj->SetColType(ECollisionType::NONE);
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
-			break;
-		}
 		case 'H':
 		{
 			// create textured objectd
@@ -429,7 +320,7 @@ void GWorld::Init()
 				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
 				SVector2(100, 140),
 				CEngine::Get()->GetRenderer(),
-				"Texture/Character/Player/Zomve.png");
+				"Texture/Character/Enemy/Zombie.png");
 
 			pObj->SetColType(ECollisionType::WALL);
 
@@ -444,12 +335,147 @@ void GWorld::Init()
 				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
 				SVector2(10752, 1308),
 				CEngine::Get()->GetRenderer(),
-				"Texture/World/Hintergrund_Level_1.png");
+				"Texture/World/Background/Hintergrund_Level_1.png");
 
 			pObj->SetColType(ECollisionType::NONE);
 
 			// add player to persistant list
 			CEngine::Get()->GetCM()->AddSceneObject(pObj);
+			break;
+		}
+		case 'F':
+		{
+			// create textured objectd
+			CTexturedObject * pObj = new  CTexturedObject(
+				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
+				SVector2(75, 140),
+				CEngine::Get()->GetRenderer(),
+				"Texture/World/Environment/Kaktus.png");
+
+			pObj->SetColType(ECollisionType::WALL);
+
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
+			break;
+		}
+		case 'G':
+		{
+			// create textured objectd
+			CTexturedObject * pObj = new  CTexturedObject(
+				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
+				SVector2(600, 630),
+				CEngine::Get()->GetRenderer(),
+				"Texture/World/Environment/Mountain_Beginning.png");
+
+			pObj->SetColType(ECollisionType::WALL);
+
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
+			break;
+		}
+		case 'T':
+		{
+			// create textured objectd
+			CTexturedObject * pObj = new  CTexturedObject(
+				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
+				SVector2(126, 250),
+				CEngine::Get()->GetRenderer(),
+				"Texture/World/Environment/Signpost.png");
+
+			pObj->SetColType(ECollisionType::NONE);
+
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
+			break;
+		}
+		case 'I':
+		{
+			// create textured objectd
+			CTexturedObject * pObj = new  CTexturedObject(
+				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
+				SVector2(600, 630),
+				CEngine::Get()->GetRenderer(),
+				"Texture/World/Environment/Mountain.png");
+
+			pObj->SetColType(ECollisionType::WALL);
+
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
+			break;
+		}
+		case 'J':
+		{
+			// create textured objectd
+			CTexturedObject * pObj = new  CTexturedObject(
+				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
+				SVector2(500, 290),
+				CEngine::Get()->GetRenderer(),
+				"Texture/World/Environment/Wagen.png");
+
+			pObj->SetColType(ECollisionType::NONE);
+
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
+			break;
+		}
+		case 'Y':
+		{
+			// create textured objectd
+			CTexturedObject * pObj = new  CTexturedObject(
+				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
+				SVector2(288, 470),
+				CEngine::Get()->GetRenderer(),
+				"Texture/World/Obstacles/Pool_Red_short.png");
+
+			pObj->SetColType(ECollisionType::NONE);
+
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddBullet(pObj);
+			break;
+		}
+		case 'K':
+		{
+			// create textured objectd
+			CTexturedObject * pObj = new  CTexturedObject(
+				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
+				SVector2(265, 42),
+				CEngine::Get()->GetRenderer(),
+				"Texture/World/Obstacles/Plattform_solid.png");
+
+			pObj->SetColType(ECollisionType::WALL);
+
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
+			break;
+		}
+		case 'Q':
+		{
+			// create textured objectd
+			CTexturedObject * pObj = new  CTexturedObject(
+				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
+				SVector2(265, 42),
+				CEngine::Get()->GetRenderer(),
+				"Texture/World/Obstacles/Plattform_moving.png");
+
+			pObj->SetColType(ECollisionType::WALL);
+
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
+			break;
+		}
+		case 'C':
+		{
+			// create textured objectd
+			CTexturedObject * pObj = new  CTexturedObject(
+				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
+				SVector2(1104, 200),
+				CEngine::Get()->GetRenderer(),
+				"Texture/World/Obstacles/Spiky_Pit_DLD.png");
+
+			pObj->SetColType(ECollisionType::NONE);
+
+			// add player to persistant list
+			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
 			break;
 		}
 		case '2':
