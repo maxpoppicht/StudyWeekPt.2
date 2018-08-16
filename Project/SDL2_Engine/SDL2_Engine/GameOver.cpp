@@ -27,7 +27,7 @@ void GGameOver::Init()
 		SVector2(m_deathpoint.X - SCREEN_WIDTH / 2 + PLAYER_WIDTH / 2, m_deathpoint.Y - SCREEN_HEIGHT / 2 + PLAYER_HEIGHT / 2),
 		SVector2(1280, 720),
 		CEngine::Get()->GetRenderer(),
-		"Texture/World/GameOver.png");
+		"Texture/World/GameOverScreen.png");
 	pGameOver->SetSrcRect(SRect(0, 0, 1280, 720));
 
 	CEngine::Get()->GetCM()->AddPersistantObject(pGameOver);

@@ -12,6 +12,7 @@ enum ECollisionType
 	MOVE,
 	BULLET,
 	PLAYER,
+	OBSTACL,
 	ENEMY,
 	WALL,
 	END
