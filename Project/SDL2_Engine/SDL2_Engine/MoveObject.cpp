@@ -3,12 +3,20 @@
 #include "Engine.h"
 #include "ContentManagement.h"
 #include "Physic.h"
+#include "Player.h"
+#include "Scene.h"
+#include "GameOver.h"
+#include "World.h"
 #pragma endregion
 
 #pragma region public override function
 // update every frame
 bool CMoveObject::Update(float _deltaTime)
 {
+	if (m_OnHitDeath == true)
+	{
+		return false;
+	}
 	// moveable default true
 	bool moveable = true;
 
@@ -20,7 +28,7 @@ bool CMoveObject::Update(float _deltaTime)
 	nextRect.x = nextPos.X;
 	nextRect.y = nextPos.Y;
 
-	if (GetColType() == ECollisionType::MOVE) 
+	if (GetColType() == ECollisionType::MOVE)
 	{
 
 		// through all scene objects
@@ -66,6 +74,128 @@ bool CMoveObject::Update(float _deltaTime)
 		}
 	}
 
+	if (GetColType() == ECollisionType::PLAYER)
+	{
+
+		// through all scene objects
+		for (CObject* pObj : CEngine::Get()->GetCM()->GetSceneObjects())
+		{
+			// if current object is self continue
+			if ((CMoveObject*)pObj && pObj == this)
+				continue;
+
+			// if collision type none
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+				continue;
+
+			// set moveable by checking collision
+			moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+
+			// if not moveable cancel collision check
+			if (!moveable)
+				break;
+		}
+
+		// if moveable
+		if (moveable)
+		{
+			// through all persistant objects
+			for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
+			{
+				// if current object is self continue
+				if ((CMoveObject*)pObj && pObj == this)
+					continue;
+
+
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::ENEMY)
+				{
+					if (CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()))
+					{
+						//Collision with Enemy take 1 damage
+						m_PlayerLife -= 1;
+
+						printf("%d\n", m_PlayerLife);
+						// if Player 0 Health he dead
+						if (m_PlayerLife <= 0)
+						{
+							SVector2 position = m_position;
+							CEngine::Get()->GetCM()->RemoveAll();
+							CEngine::Get()->ChangeScene(new GGameOver(position));
+						}
+					}
+				}
+
+
+				// if collision type none
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+					continue;
+
+				// set moveable by checking collision
+				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+
+				// if not moveable cancel collision check
+				if (!moveable)
+					break;
+			}
+		}
+	}
+
+	if (GetColType() == ECollisionType::ENEMY)
+	{
+
+		// through all scene objects
+		for (CObject* pObj : CEngine::Get()->GetCM()->GetSceneObjects())
+		{
+			// if current object is self continue
+			if ((CMoveObject*)pObj && pObj == this)
+				continue;
+
+			// if collision type none
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+				continue;
+
+			// set moveable by checking collision
+			moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+
+			// if not moveable cancel collision check
+			if (!moveable)
+				break;
+		}
+
+
+
+		// if moveable
+		if (moveable)
+		{
+			// through all persistant objects
+			for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
+			{
+				// if current object is self continue
+				if ((CMoveObject*)pObj && pObj == this)
+					continue;
+
+				// if collision type none
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+					continue;
+
+				// set moveable by checking collision
+				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+
+				/// <summary>
+				/// TODO: FIX 
+				/// </summary>
+				/// <param name="_deltaTime"></param>
+				/// <returns></returns>
+				 
+				
+
+				// if not moveable cancel collision check
+				if (!moveable)
+					break;
+			}
+		}
+	}
+
 	if (GetColType() == ECollisionType::BULLET)
 	{
 
@@ -93,9 +223,49 @@ bool CMoveObject::Update(float _deltaTime)
 			{
 				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
 			}
-				continue;
+			continue;
+		}
+
+		// if moveable
+		if (moveable)
+		{
+			// through all persistant objects
+			for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
+			{
+				// if current object is self continue
+				if ((CMoveObject*)pObj && pObj == this)
+					continue;
+
+				// if collision type none
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+					continue;
+
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::PLAYER)
+					continue;
+
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::ENEMY)
+				{
+
+					if(CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()))
+					{
+						((CTexturedObject*)pObj)->Kill();
+						return false;
+					}
+				}
+
+				// set moveable by checking collision
+				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+
+				
+
+				// if not moveable cancel collision check
+				if (!moveable)
+					break;
+			}
 		}
 	}
+
+
 
 	// if moveable
 	if (moveable)

@@ -50,6 +50,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Game\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="Animation.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +180,9 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h" />
   </ItemGroup>
