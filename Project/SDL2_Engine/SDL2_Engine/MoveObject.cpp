@@ -127,6 +127,23 @@ bool CMoveObject::Update(float _deltaTime)
 					}
 				}
 
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::OBSTACL)
+				{
+					if (CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()))
+					{
+						//Collision with Enemy take 1 damage
+						m_PlayerLife -= 1;
+
+						printf("%d\n", m_PlayerLife);
+						// if Player 0 Health he dead
+						if (m_PlayerLife <= 0)
+						{
+							SVector2 position = m_position;
+							CEngine::Get()->GetCM()->RemoveAll();
+							CEngine::Get()->ChangeScene(new GGameOver(position));
+						}
+					}
+				}
 
 				// if collision type none
 				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
@@ -198,6 +215,62 @@ bool CMoveObject::Update(float _deltaTime)
 		}
 	}
 
+	if (GetColType() == ECollisionType::OBSTACL)
+	{
+
+		// through all scene objects
+		for (CObject* pObj : CEngine::Get()->GetCM()->GetSceneObjects())
+		{
+			// if current object is self continue
+			if ((CMoveObject*)pObj && pObj == this)
+				continue;
+
+			// if collision type none
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+				continue;
+
+			// set moveable by checking collision
+			moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+
+			// if not moveable cancel collision check
+			if (!moveable)
+				break;
+		}
+
+
+
+		// if moveable
+		if (moveable)
+		{
+			// through all persistant objects
+			for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
+			{
+				// if current object is self continue
+				if ((CMoveObject*)pObj && pObj == this)
+					continue;
+
+				// if collision type none
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+					continue;
+
+				// set moveable by checking collision
+				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+
+				/// <summary>
+				/// TODO: FIX 
+				/// </summary>
+				/// <param name="_deltaTime"></param>
+				/// <returns></returns>
+
+
+
+				// if not moveable cancel collision check
+				if (!moveable)
+					break;
+			}
+		}
+	}
+
 	if (GetColType() == ECollisionType::BULLET)
 	{
 
@@ -222,6 +295,12 @@ bool CMoveObject::Update(float _deltaTime)
 
 			// if collision type wall
 			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::WALL)
+			{
+				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+			}
+			continue;
+			// if collision type obstacl
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::OBSTACL)
 			{
 				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
 			}
