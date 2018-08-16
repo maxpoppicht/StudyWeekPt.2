@@ -50,7 +50,12 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Game\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Game\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -109,6 +114,9 @@
     </Filter>
     <Filter Include="Game\Bullet">
       <UniqueIdentifier>{c4e67706-78b1-4524-873d-1ed7e5269cd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animation">
+      <UniqueIdentifier>{81ab4eeb-8c22-47cd-a033-ceefee81e92d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +186,11 @@
     <ClInclude Include="Bullet.h">
       <Filter>Game\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h" />
+    <ClInclude Include="GameOver.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Game\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

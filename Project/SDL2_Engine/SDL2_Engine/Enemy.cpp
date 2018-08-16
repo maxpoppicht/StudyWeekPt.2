@@ -4,11 +4,9 @@
 
 bool GEnemy::Update(float _deltaTime)
 {
-	m_movement.X = -1.0f;
-	m_mirror.X = 1.0f;
+	m_movement.X = 0.0f;
+	m_mirror.X = 0.0f;
 
 	// update parent
-	CMoveObject::Update(_deltaTime);
-	
-	return true;
+	return CMoveObject::Update(_deltaTime);
 }

@@ -35,6 +35,10 @@ CTexturedObject::~CTexturedObject()
 // update every frame
 bool CTexturedObject::Update(float _deltaTime)
 {
+	if (m_OnHitDeath == true)
+	{
+		return false;
+	}
 	// set position of rect
 	m_rect.x = m_position.X;
 	m_rect.y = m_position.Y;
@@ -47,5 +51,9 @@ void CTexturedObject::Render(CRenderer * _pRenderer)
 {
 	// render texture
 	_pRenderer->RenderTexture(m_pTexture, m_rect, m_srcRect, m_mirror, m_angle);
+}
+void CTexturedObject::Kill()
+{
+	m_OnHitDeath = true;
 }
 #pragma endregion

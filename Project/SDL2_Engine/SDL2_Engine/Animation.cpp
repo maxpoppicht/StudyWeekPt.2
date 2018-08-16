@@ -1,6 +1,5 @@
 #include "Animation.h"
-
-
+// erstellt von Timo
 
 CAnimation::CAnimation(SVector2 _pos, SVector2 _size, CRenderer * _pRenderer, const char * _pFileName, int h, int b, int x, int y, float _frameTime) : CTexturedObject(_pos, _size, _pRenderer, _pFileName)
 {
