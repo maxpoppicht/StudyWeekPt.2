@@ -24,14 +24,6 @@ public:
 	~GWorld() {}
 #pragma endregion
 
-public:
-
-	/// <summary>
-	/// Player Life
-	/// </summary>
-	int m_PlayerLife = 3;
-
-
 #pragma region public function
 	/// <summary>
 	/// initialize world
