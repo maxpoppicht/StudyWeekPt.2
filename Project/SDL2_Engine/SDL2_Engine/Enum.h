@@ -1,6 +1,9 @@
 #pragma once
 
 /// <summary>
+/// Hat max gemacht
+/// </summary>
+/// <summary>
 /// collision type enum
 /// </summary>
 enum ECollisionType
@@ -9,6 +12,7 @@ enum ECollisionType
 	MOVE,
 	BULLET,
 	PLAYER,
+	OBSTACL,
 	ENEMY,
 	WALL
 };

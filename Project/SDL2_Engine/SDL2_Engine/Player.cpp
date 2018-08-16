@@ -15,6 +15,11 @@
 #include "World.h"
 #pragma endregion
 
+
+
+/// <summary>
+/// Bearbeitet von Max und Timo
+/// </summary>
 #pragma region public override function
 // update every frame
 bool GPlayer::Update(float _deltaTime)
@@ -23,7 +28,7 @@ bool GPlayer::Update(float _deltaTime)
 	int mouseY;
 	m_ShootRate -= _deltaTime;
 	
-
+	//Hat Max gemacht
 	if(SDL_GetMouseState(&mouseX, &mouseY) && SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
 
@@ -67,11 +72,22 @@ bool GPlayer::Update(float _deltaTime)
 		m_jumpTime = PLAYER_JUMP_TIME;
 		m_gravity = false;
 		KeyPressed = 2;
-		m_Idle->SetAnimationActive(false);
+		m_Idle->SetAnimationActive(false);				//Generell alles mit Animationen war Timo
 		m_Run->SetAnimationActive(false);
 		m_Jump->SetAnimationActive(true);
 
 	}
+
+	/// <summary>
+	/// Max gemacht: "gleit funktion" damit man durch die luft gleiten kann
+	/// </summary>
+	/// <returns></returns>
+	// key is pressed and not grounded
+	if(CInput::GetKey(SDL_SCANCODE_SPACE) && !m_grounded)
+	{
+		m_fallTime = 0.75f;
+	}
+
 
 	// movement left
 	if (CInput::GetKey(SDL_SCANCODE_A))
@@ -82,7 +98,7 @@ bool GPlayer::Update(float _deltaTime)
 		KeyPressed = 1;
 		if (!m_jump)
 		{
-			m_Idle->SetAnimationActive(false);
+			m_Idle->SetAnimationActive(false);			//Generell alles mit Animationen war Timo
 			m_Run->SetAnimationActive(true);
 			m_Jump->SetAnimationActive(false);
 		}
@@ -97,7 +113,7 @@ bool GPlayer::Update(float _deltaTime)
 		KeyPressed = 1;
 		if (!m_jump)
 		{
-			m_Idle->SetAnimationActive(false);
+			m_Idle->SetAnimationActive(false);			//Generell alles mit Animationen war Timo
 			m_Run->SetAnimationActive(true);
 			m_Jump->SetAnimationActive(false);
 		}
@@ -108,8 +124,8 @@ bool GPlayer::Update(float _deltaTime)
 	else
 	{
 		if (!m_jump)
-		{
-			m_Idle->SetAnimationActive(true);
+		{	
+			m_Idle->SetAnimationActive(true);			//Generell alles mit Animationen war Timo
 			m_Run->SetAnimationActive(false);
 			m_Jump->SetAnimationActive(false);
 		}
@@ -207,13 +223,6 @@ bool GPlayer::Update(float _deltaTime)
 		SVector2(m_position.X + PLAYER_WIDTH / 2, m_position.Y + PLAYER_HEIGHT / 2)
 	);
 
-	/// <summary>
-	/// TODO: DELETE
-	/// </summary>
-	// print player position
-	//std::string s = "Position Y: ";
-	//s += std::to_string(m_position.Y);
-	//LOG_ERROR("", s.c_str());
 
 	return true;
 }
