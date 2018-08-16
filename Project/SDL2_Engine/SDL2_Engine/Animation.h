@@ -1,5 +1,7 @@
 #pragma once
 #include "TexturedObject.h"
+// erstellt von Timo
+
 class CAnimation :
 	public CTexturedObject
 {
