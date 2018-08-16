@@ -6,7 +6,11 @@
 #include <iostream>
 #include "Engine.h"
 #include "ContentManagement.h"
-
+/// <summary>
+/// Bearbeitet von Max
+/// </summary>
+/// <param name="_deltaTime"> delta time</param>
+/// <returns></returns>
 bool GBullet::Update(float _deltaTime)
 {
 	m_movement.X = m_shootDir.X * 2;
