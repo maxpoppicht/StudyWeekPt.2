@@ -26,6 +26,7 @@ CContentManagement::~CContentManagement()
 #pragma endregion
 
 #pragma region public function
+
 // update every frame
 void CContentManagement::Update(float _deltaTime)
 {
@@ -94,6 +95,46 @@ void CContentManagement::Update(float _deltaTime)
 	}
 }
 
+void CContentManagement::RemoveAll()
+{
+
+	for each (CObject* pObj in m_pSceneObjects)
+	{
+		{
+			m_pRemoveObjects.push_back(pObj);
+		}
+
+	}
+
+
+	for (CObject* pObj : m_pPersistantObjects)
+	{
+		{
+			m_pRemoveObjects.push_back(pObj);
+		}
+
+	}
+
+	for (CObject* pObj : m_pUIObjects)
+	{
+		{
+			m_pRemoveObjects.push_back(pObj);
+		}
+
+	}
+
+
+	for (CObject* pObj : m_pBullet)
+	{
+		{
+			m_pRemoveObjects.push_back(pObj);
+		}
+
+	}
+
+}
+
+
 // render every frame
 void CContentManagement::Render(CRenderer * _pRenderer)
 {
@@ -115,9 +156,13 @@ void CContentManagement::Render(CRenderer * _pRenderer)
 		pObj->Render(_pRenderer);
 }
 
+
+
+
 // remove object
 void CContentManagement::RemoveObject(CObject * _pObj)
 {
+	
 	// add object to remove list
 	m_pRemoveObjects.push_front(_pObj);
 }

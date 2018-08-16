@@ -6,7 +6,7 @@
 
 #pragma region constructor
 // constructor
-CTexturedObject::CTexturedObject(SVector2 _pos, SVector2 _size, CRenderer * _pRenderer, 
+CTexturedObject::CTexturedObject(SVector2 _pos, SVector2 _size, CRenderer * _pRenderer,
 	const char * _pFileName)
 {
 	// set position and rect
@@ -20,11 +20,13 @@ CTexturedObject::CTexturedObject(SVector2 _pos, SVector2 _size, CRenderer * _pRe
 	m_pTexture = new CTexture(_pFileName, _pRenderer);
 }
 
+
+
 // destructor
 CTexturedObject::~CTexturedObject()
 {
 	// delete texture
-	if(m_pTexture)
+	if (m_pTexture)
 		delete m_pTexture;
 }
 #pragma endregion
@@ -33,6 +35,10 @@ CTexturedObject::~CTexturedObject()
 // update every frame
 bool CTexturedObject::Update(float _deltaTime)
 {
+	if (m_OnHitDeath == true)
+	{
+		return false;
+	}
 	// set position of rect
 	m_rect.x = m_position.X;
 	m_rect.y = m_position.Y;
@@ -45,5 +51,9 @@ void CTexturedObject::Render(CRenderer * _pRenderer)
 {
 	// render texture
 	_pRenderer->RenderTexture(m_pTexture, m_rect, m_srcRect, m_mirror, m_angle);
+}
+void CTexturedObject::Kill()
+{
+	m_OnHitDeath = true;
 }
 #pragma endregion

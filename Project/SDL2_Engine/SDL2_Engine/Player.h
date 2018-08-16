@@ -5,6 +5,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include "Animation.h"
 #pragma endregion
 
 /// <summary>
@@ -57,6 +58,10 @@ public:
 	void Render(CRenderer* _pRenderer) override;
 #pragma endregion
 
+	CAnimation* m_Run;
+	CAnimation* m_Jump; 
+	CAnimation* m_Idle;
+
 private:
 #pragma region private primitive variable
 	/// <summary>
@@ -69,8 +74,16 @@ private:
 	/// </summary>
 	float m_ShootRate;
 
+	/// <summary>
+	/// Time Since last fired shot
+	/// </summary>
 	float TimeSinceLastShot;
 
+	/// <summary>
+	/// Player Life
+	/// </summary>
+	//int m_PlayerLife;
+		
 	/// <summary>
 	/// time till jump ends
 	/// </summary>
