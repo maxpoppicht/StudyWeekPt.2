@@ -85,7 +85,7 @@ bool GPlayer::Update(float _deltaTime)
 	// key is pressed and not grounded
 	if(CInput::GetKey(SDL_SCANCODE_SPACE) && !m_grounded)
 	{
-		m_fallTime = 0.75f;
+		m_fallTime = 0.82f;
 	}
 
 
