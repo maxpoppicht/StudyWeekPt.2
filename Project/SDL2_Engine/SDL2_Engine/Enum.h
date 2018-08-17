@@ -13,6 +13,7 @@ enum ECollisionType
 	BULLET,
 	PLAYER,
 	OBSTACL,
+	DUMMY,
 	ENEMY,
 	END,
 	WALL
