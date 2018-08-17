@@ -9,6 +9,7 @@
 bool GEnemy::Update(float _deltaTime)
 {
 	m_movement.X = 0.0f;
+
 	m_mirror.X = 0.0f;
 
 	// update parent
