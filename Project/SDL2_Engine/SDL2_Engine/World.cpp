@@ -67,6 +67,7 @@ void GWorld::Init()
 	// Collider
 	// 2 = Invisible Collider for Cart
 
+
 	world += "1ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\n";
 	world += "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\n";
 	world += "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWWWWWWWWVVVV\n";
@@ -106,6 +107,7 @@ void GWorld::Init()
 	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
 
 
+
 	// width and height of world
 	int width = 0, height = 1;
 
@@ -129,9 +131,7 @@ void GWorld::Init()
 			SVector2(WORLD_BLOCK_WIDTH, WORLD_BLOCK_HEIGHT),
 			CEngine::Get()->GetRenderer(),
 			"Texture/World/Layer/Background_Layer1.png"
-
 		);
-
 
 		// x position of texture in atlas map
 		int xPosOfTexture = 0;
@@ -171,7 +171,6 @@ void GWorld::Init()
 			//third texture of layer
 			xPosOfTexture = 3 * WORLD_BLOCK_ATLAS_WIDTH;
 
-			
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
@@ -180,7 +179,6 @@ void GWorld::Init()
 			//4th texture of layer
 			xPosOfTexture = 4 * WORLD_BLOCK_ATLAS_WIDTH;
 
-			
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
@@ -189,7 +187,6 @@ void GWorld::Init()
 			//5th texture of layer
 			xPosOfTexture = 5 * WORLD_BLOCK_ATLAS_WIDTH;
 
-			
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
@@ -197,7 +194,6 @@ void GWorld::Init()
 		{
 			//6th texture of layer
 			xPosOfTexture = 6 * WORLD_BLOCK_ATLAS_WIDTH;
-			
 			
 			pObj->SetColType(ECollisionType::NONE);
 			break;
@@ -207,7 +203,6 @@ void GWorld::Init()
 			//7th texture of layer
 			xPosOfTexture = 7 * WORLD_BLOCK_ATLAS_WIDTH;
 
-			
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
@@ -216,7 +211,6 @@ void GWorld::Init()
 			//8th texture of layer
 			xPosOfTexture = 8 * WORLD_BLOCK_ATLAS_WIDTH;
 
-			
 			pObj->SetColType(ECollisionType::WALL);
 			break;
 		}
@@ -225,7 +219,6 @@ void GWorld::Init()
 			//9th texture of layer
 			xPosOfTexture = 9 * WORLD_BLOCK_ATLAS_WIDTH;
 
-			
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
@@ -234,7 +227,6 @@ void GWorld::Init()
 			//10th texture of layer
 			xPosOfTexture = 10 * WORLD_BLOCK_ATLAS_WIDTH;
 
-			
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
@@ -243,7 +235,6 @@ void GWorld::Init()
 			//11th texture of layer
 			xPosOfTexture = 11 * WORLD_BLOCK_ATLAS_WIDTH;
 
-			
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
@@ -252,7 +243,6 @@ void GWorld::Init()
 			//12th texture of layer
 			xPosOfTexture = 12 * WORLD_BLOCK_ATLAS_WIDTH;
 
-			
 			pObj->SetColType(ECollisionType::NONE);
 			break;
 		}
@@ -274,6 +264,7 @@ void GWorld::Init()
 
 			CEngine::Get()->GetCM()->AddPersistantObject(pPlayer);
 
+			// animations
 			CAnimation* pIdle = new CAnimation(
 				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT),
 				SVector2(94, 124),
