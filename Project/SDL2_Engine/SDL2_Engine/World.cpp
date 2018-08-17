@@ -335,7 +335,7 @@ void GWorld::Init()
 				CEngine::Get()->GetRenderer(),
 				"Texture/Character/Enemy/Zombie.png");
 
-			pObj->SetColType(ECollisionType::OBSTACL);
+			pObj->SetColType(ECollisionType::DUMMY);
 
 		
 			CEngine::Get()->GetCM()->AddPersistantObject(pObj);
